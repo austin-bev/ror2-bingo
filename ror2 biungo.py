@@ -175,7 +175,7 @@ equipment = [
     ("Ocular HUD", False),
     ("Forgive Me Please", False),
     ("The Back-up", False),
-    ("Volcania Egg", False),
+    ("Volcanic Egg", False),
     ("Foreign Fruit", False),
     ("Jade Elephant", False),
     ("Eccentric Vase", False),
@@ -258,15 +258,17 @@ item_actions = [
     "Have both bands",
     "2 different movement items",
     "2 different healing items",
+    "4 different damage items (inc attack speed and crit)",
     "Have an enemy be death marked",
-    "Have 5 of 1 item (Green or rarer. Not scrap)",
+    "Have 5 of 1 item (Green or rarer. Scrap included)",
     "Bring the battery to stage 5",
+    "Bring the battery to stage 4 (NO MUL-T)",
     "Get a stage 4 guarenteed legendary",
     "Leave a legendary on the floor (leave the stage)",
     "Scrap a legendary (NOT Defensive Microbots)",
     "Use a boss item printer",
     "Leave a stage without picking up a single item",
-    "Pick up an item from a lunar pod (finish the stage)"
+    "Pick up an item from a lunar pod (finish the stage)",
 ]
 
 drones_turrents = [
@@ -288,31 +290,39 @@ events_map = [
     "Complete a secret area (void fields, armory, gilded coast)",
     "Beat a shrine of combat on stage 4+",
     "Activate a stage 5 shrine of combat",
-    "Roll a pot onto a pressure plate",
+    "Roll a pot onto a pressure plate", #LMAO
     "2 lunar coin drops",
-    "Stage 3 in under 10 minutes"
+    "Stage 3 in under 10 minutes",
+    "Beat an entire teleporter event without left clicking"
 ]
 
 enemies_bosses = [
-    "Kill a boss in less than 10 seconds",
+    "Kill a teleporter boss in less than 10 seconds",
+    "Kill a teleporter boss in less than 5 seconds",
     f"Kill a {pick_random_boss()}",
+    f"Make it to stage 2 as {pick_random_character()}",
     f"Make it to stage 3 as {pick_random_character()}",
+    f"Make it to stage 3 as {pick_random_character()}. Default loadout",
+    f"Make it to stage 4 as {pick_random_character()}",
+    f"Make it to stage 4 as {pick_random_character()}. Default loadout",
 ]
 
 endgame_actions = [
     "Kill Mythrix",
     "Loop",
-    "Get any ending",
+    "Get any ending (death is not an ending)",
     "Obliterate",
     "Complete void fields",
     "Skip pillars",
-    "Complete bulwarks armory (default)"
+    "Complete bulwarks armory (default)",
+    "DIE"
 ]
 
 dlc_actions = [
     "Beat a void seed",
     "Have at least 1 item of each rarity (void, boss, ect)",
     "Break 5 watches",
+    "AHOY!"
 ]
 
 void_items_actions = [
@@ -322,12 +332,14 @@ void_items_actions = [
 ]
 
 multiplayer_actions = [
+    f"Make it to stage 2 with all players as {pick_random_character()}",
     f"Make it to stage 3 with all players as {pick_random_character()}",
+    f"Make it to stage 4 with all players as {pick_random_character()}",
     "Have 10 turrents (non Engineer) across the team",
     "Have 10 drones across the team",
     "Have 5 legendaries across the team",
     f"{pick_common_item()}, and {pick_uncommon_item()} on one person",
-    "Beat a level 3+ boss with one person alive"
+    "Beat a level 3+ boss with one person alive at the start of the boss"
 ]
 
 ################################################################################
@@ -348,13 +360,13 @@ def pick_leg_item():
         choices = random.sample(leg, 3)
     return f"{choices[0][0]}, {choices[1][0]} or {choices[2][0]}"
 
-#Picks 2 random green items with an OR
-#Removes Pearl and Irradiant Pearl if void_items is off
+#Picks 3 random green items with an OR
+#Removes Irradiant Pearl if void_items is off
 def pick_yellow_item():
-    choices = random.sample(yellow, 2)
-    while (not dlc_enabled and (choices[0][1] or choices[1][1])) or (not shop_items_enabled and (any("Pearl" in c for c in [choices[0][0], choices[1][0]]))):
-        choices = random.sample(yellow, 2)
-    return f"{choices[0][0]} or {choices[1][0]}"
+    choices = random.sample(yellow, 3)
+    while (not dlc_enabled and (choices[0][1] or choices[1][1] or choices[2][1])) or (not shop_items_enabled and (any("Irradiant Pearl" in c for c in [choices[0][0], choices[1][0]]))):
+        choices = random.sample(yellow, 3)
+    return f"{choices[0][0]}, {choices[1][0]} or {choices[2][0]}"
 
 #Picks 2 random equipment with an OR
 def pick_equipment():
