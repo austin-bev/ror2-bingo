@@ -1,6 +1,10 @@
 import random
 import json
 import pyperclip
+import logging
+
+#Debug
+logging.basicConfig(level=logging.INFO)
 
 #Flags
 dlc_enabled = False
@@ -252,94 +256,117 @@ def pick_random_boss():
         choice = random.choice(bosses)
     return choice[0]
 
+artifacts = [
+    "Artifact of Chaos",
+    "Artifact of Command",
+    "Artifact of Death",
+    "Artifact of Dissonance",
+    "Artifact of Enigma",
+    "Artifact of Evolution",
+    "Artifact of Frailty",
+    "Artifact of Glass",
+    "Artifact of Honor",
+    "Artifact of Kin",
+    "Artifact of Metamorphosis",
+    "Artifact of Sacrifice",
+    "Artifact of Soul",
+    "Artifact of Spite",
+    "Artifact of Swarms",
+    "Artifact of Vengeance"
+]
+
+def pick_random_artifact():
+    return random.choice(artifacts)
+
 ################################################################################   
 item_actions = [
-    "Use a rusted key",
-    "Have both bands",
-    "2 different movement items",
-    "2 different healing items",
-    "4 different damage items (inc attack speed and crit)",
-    "Have an enemy be death marked",
-    "Have 5 of 1 item (Green or rarer. Scrap included)",
-    "Bring the battery to stage 5",
-    "Bring the battery to stage 4 (NO MUL-T)",
-    "Get a stage 4 guarenteed legendary",
-    "Leave a legendary on the floor (leave the stage)",
-    "Scrap a legendary (NOT Defensive Microbots)",
-    "Use a boss item printer",
-    "Leave a stage without picking up a single item",
-    "Pick up an item from a lunar pod (finish the stage)",
+    '"Use a rusted key"',
+    '"Have both bands"',
+    '"2 different movement items"',
+    '"2 different healing items"',
+    '"4 different damage items (inc attack speed and crit)"',
+    '"Have an enemy be death marked"',
+    '"Have 5 of 1 item (Green or rarer. Scrap included)"',
+    '"Bring the battery to stage 4"',
+    '"Get a stage 4 guarenteed legendary"',
+    '"Leave a legendary on the floor (leave the stage)"',
+    '"Scrap a legendary (NOT Defensive Microbots)"',
+    '"Use a boss item printer"',
+    '"Leave a stage without picking up a single item"',
+    '"Pick up an item from a lunar pod (finish the stage)"',
 ]
 
 drones_turrents = [
-    "Give an equipment drone something useless",
-    "Beeg drone (TC-280 or Incinerator)",
-    "Have 6 drones total",
-    "Have 6 turrents total (Engineer turrents do not count)",
+    '"Give an equipment drone something useless"',
+    '"Beeg drone (TC-280 or Incinerator)"',
+    '"Have 6 drones total"',
+    '"Have 6 turrents total (Engineer turrents do not count)"',
 ]
 
 events_map = [
-    "Take no damage from a shrine of blood",
-    "Fail a shrine 3 times in a row",
-    "Beat a monkey paw",
-    "Beat 2 monkey paws in the same map",
-    "Purchase the gold shrine",
-    "Use a shrine of the woods",
-    "Use a shrine of order",
-    "Go inside the shop 3 times",
-    "Complete a secret area (void fields, armory, gilded coast)",
-    "Beat a shrine of combat on stage 4+",
-    "Activate a stage 5 shrine of combat",
-    "Roll a pot onto a pressure plate", #LMAO
-    "2 lunar coin drops",
-    "Stage 3 in under 10 minutes",
-    "Beat an entire teleporter event without left clicking"
+    '"Take no damage from a shrine of blood"',
+    '"Fail a shrine 3 times in a row"',
+    '"Beat a monkey paw"',
+    '"Beat 2 monkey paws in the same map"',
+    '"Purchase the gold shrine"',
+    '"Use a shrine of the woods"',
+    '"Use a shrine of order"',
+    '"Go inside the shop 3 times"',
+    '"Complete a secret area (void fields, armory, gilded coast)"',
+    '"Beat a shrine of combat on stage 4+"',
+    '"Activate a stage 5 shrine of combat"',
+    '"Roll a pot onto a pressure plate"', #LMAO
+    '"2 lunar coin drops"',
+    '"Stage 3 in under 10 minutes"',
+    '"Beat an entire teleporter event without left clicking"'
 ]
 
 enemies_bosses = [
-    "Kill a teleporter boss in less than 10 seconds",
-    "Kill a teleporter boss in less than 5 seconds",
-    f"Kill a {pick_random_boss()}",
-    f"Make it to stage 2 as {pick_random_character()}",
-    f"Make it to stage 3 as {pick_random_character()}",
-    f"Make it to stage 3 as {pick_random_character()}. Default loadout",
-    f"Make it to stage 4 as {pick_random_character()}",
-    f"Make it to stage 4 as {pick_random_character()}. Default loadout",
+    '"Kill a teleporter boss in less than 10 seconds"',
+    '"Kill a teleporter boss in less than 5 seconds"',
+    'f"Kill a {pick_random_boss()}"',
+    'f"Make it to stage 2 as {pick_random_character()}"',
+    'f"Make it to stage 3 as {pick_random_character()}"',
+    'f"Make it to stage 3 as {pick_random_character()}. Default loadout"',
+    'f"Make it to stage 4 as {pick_random_character()}"',
+    'f"Make it to stage 4 as {pick_random_character()}. Default loadout"',
 ]
 
 endgame_actions = [
-    "Kill Mythrix",
-    "Loop",
-    "Get any ending (death is not an ending)",
-    "Obliterate",
-    "Complete void fields",
-    "Skip pillars",
-    "Complete bulwarks armory (default)",
-    "DIE"
+    '"Kill Mythrix"',
+    '"Loop"',
+    '"Get any ending (death is not an ending)"',
+    '"Obliterate"',
+    '"Complete void fields"',
+    '"Skip pillars"',
+    '"Complete bulwarks armory (default)"',
+    'f"Complete bulwarks armory ({pick_random_artifact()})"',
+    '"DIE"'
 ]
 
 dlc_actions = [
-    "Beat a void seed",
-    "Have at least 1 item of each rarity (void, boss, ect)",
-    "Break 5 watches",
-    "AHOY!"
+    '"Beat a void seed"',
+    '"Have at least 1 item of each rarity (void, boss, ect)"',
+    '"Break 3 watches"',
+    '"AHOY!"'
 ]
 
 void_items_actions = [
-    "2x shaped glass",
-    "Become the Heretic",
-    "Beat 2 bosses while holding egocentrism"
+    '"2x shaped glass"',
+    '"Become the Heretic"',
+    '"Beat 2 teleporter bosses while holding egocentrism"',
+    '"Constantly activating equipment"'
 ]
 
 multiplayer_actions = [
-    f"Make it to stage 2 with all players as {pick_random_character()}",
-    f"Make it to stage 3 with all players as {pick_random_character()}",
-    f"Make it to stage 4 with all players as {pick_random_character()}",
-    "Have 10 turrents (non Engineer) across the team",
-    "Have 10 drones across the team",
-    "Have 5 legendaries across the team",
-    f"{pick_common_item()}, and {pick_uncommon_item()} on one person",
-    "Beat a level 3+ boss with one person alive at the start of the boss"
+    'f"Make it to stage 2 with all players as {pick_random_character()}"',
+    'f"Make it to stage 3 with all players as {pick_random_character()}"',
+    'f"Make it to stage 4 with all players as {pick_random_character()}"',
+    '"Have 10 turrents (non Engineer) across the team"',
+    '"Have 10 drones across the team"',
+    '"Have 5 legendaries across the team"',
+    'f"{pick_common_item()}, and {pick_uncommon_item()} on one person"',
+    '"Beat a level 3+ boss with one person alive at the start of the boss"'
 ]
 
 ################################################################################
@@ -388,10 +415,10 @@ def pick_goal_not_item():
         all_goals += void_items_actions
     if multiplayer_enabled:
         all_goals += multiplayer_actions
-    return random.choice(all_goals)     
+    return eval(random.choice(all_goals))     
 
 def pick_goal_ending():
-    return random.choice(endgame_actions)
+    return eval(random.choice(endgame_actions))
 
 def pick_goal_item():
     options = [pick_common_item, pick_common_item_multiple, pick_green_item, pick_leg_item, pick_yellow_item, pick_equipment]
@@ -403,9 +430,11 @@ def pick_bingo_board():
     options = [pick_goal_item, pick_goal_not_item, pick_goal_ending]
     items = []
     while len(items) != 25:
-        objective = random.choices(options, weights=[30, 65, 5], k=1)[0]()
+        objective = random.choices(options, weights=[25, 60, 5], k=1)[0]()
         if objective not in items:
             items.append(objective)
+        else:
+            logging.debug("Clash: " + objective)
     return items
 
 def format_bingo_board(items):
