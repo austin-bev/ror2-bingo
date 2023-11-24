@@ -281,10 +281,10 @@ def pick_random_artifact():
 ################################################################################   
 item_actions = [
     '"Use a rusted key"',
-    '"Have both bands"',
+    '"Activate both bands at once"',
     '"2 different movement items"',
     '"2 different healing items"',
-    '"4 different damage items (inc attack speed and crit)"',
+    '"4 different damage items"',
     '"Have an enemy be death marked"',
     '"Have 5 of 1 item (Green or rarer. Scrap included)"',
     '"Bring the battery to stage 4"',
@@ -309,9 +309,10 @@ events_map = [
     '"Beat a monkey paw"',
     '"Beat 2 monkey paws in the same map"',
     '"Purchase the gold shrine"',
-    '"Use a shrine of the woods"',
+    '"Fully upgrade a shrine of the woods"',
     '"Use a shrine of order"',
     '"Go inside the shop 3 times"',
+    '"Get kicked out the shop"',
     '"Complete a secret area (void fields, armory, gilded coast)"',
     '"Beat a shrine of combat on stage 4+"',
     '"Activate a stage 5 shrine of combat"',
@@ -339,6 +340,7 @@ endgame_actions = [
     '"Obliterate"',
     '"Complete void fields"',
     '"Skip pillars"',
+    '"Complete the pillars"',
     '"Complete bulwarks armory (default)"',
     'f"Complete bulwarks armory ({pick_random_artifact()})"',
     '"DIE"'
@@ -348,14 +350,17 @@ dlc_actions = [
     '"Beat a void seed"',
     '"Have at least 1 item of each rarity (void, boss, ect)"',
     '"Break 3 watches"',
-    '"AHOY!"'
+    '"AHOY!"',
+    '"AHOY! Drone"',
+    '"2 different items/equipment which get you more items"',
+    '"Have an enemy dissapear with lost seers lenses"'
 ]
 
 void_items_actions = [
-    '"2x shaped glass"',
+    '"Kill a teleporter boss with 2x shaped glass"',
     '"Become the Heretic"',
     '"Beat 2 teleporter bosses while holding egocentrism"',
-    '"Constantly activating equipment"'
+    '"Constantly activating equipment (not tonic)"'
 ]
 
 multiplayer_actions = [
@@ -366,7 +371,7 @@ multiplayer_actions = [
     '"Have 10 drones across the team"',
     '"Have 5 legendaries across the team"',
     'f"{pick_common_item()}, and {pick_uncommon_item()} on one person"',
-    '"Beat a level 3+ boss with one person alive at the start of the boss"'
+    '"Beat a level 3+ boss with only one person alive at the start of the boss"'
 ]
 
 ################################################################################
@@ -391,7 +396,7 @@ def pick_leg_item():
 #Removes Irradiant Pearl if void_items is off
 def pick_yellow_item():
     choices = random.sample(yellow, 3)
-    while (not dlc_enabled and (choices[0][1] or choices[1][1] or choices[2][1])) or (not shop_items_enabled and (any("Irradiant Pearl" in c for c in [choices[0][0], choices[1][0]]))):
+    while (not dlc_enabled and (choices[0][1] or choices[1][1] or choices[2][1])) or (not shop_items_enabled and (any("Irradiant Pearl" in c for c in [choices[0][0], choices[1][0], choices[2][0]]))):
         choices = random.sample(yellow, 3)
     return f"{choices[0][0]}, {choices[1][0]} or {choices[2][0]}"
 
